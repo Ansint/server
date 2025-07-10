@@ -184,8 +184,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "debian-openssl-1.1.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-1.1.x"
       }
     ],
     "previewFeatures": [],
@@ -193,7 +197,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "..",
@@ -203,6 +207,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -211,8 +216,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./__generated__\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URI\")\n}\n\nmodel User {\n  id          String  @id @default(uuid())\n  email       String  @unique\n  password    String\n  displayName String  @unique\n  picture     String?\n\n  method AuthMethod @default(CREDENTIALS) @map(\"auth_method\")\n\n  isEmailVerified    Boolean @default(false) @map(\"is_email_verified\")\n  isTwoFactorEnabled Boolean @default(false) @map(\"is_two_factor_enabled\")\n\n  role UserRole @default(REGULAR)\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  accounts Accounts[]\n  tokens   Token[]\n\n  @@map(\"users\")\n}\n\nmodel Accounts {\n  id       String @id @default(uuid())\n  type     String\n  provider String\n\n  refreshToken String? @map(\"refresh_token\")\n  accessToken  String? @map(\"access_token\")\n\n  expiresAt Int? @map(\"expires_at\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @map(\"user_id\")\n\n  @@map(\"accounts\")\n}\n\nmodel Token {\n  id    String        @id @default(uuid())\n  email String        @unique\n  token String        @unique\n  type  EnumTokenType\n\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @map(\"user_id\")\n\n  expiresIn DateTime @map(\"expires_in\")\n\n  @@map(\"tokens\")\n}\n\nenum EnumTokenType {\n  VERIFICATION\n  TWO_FACTOR\n  PASSWORD_RESET\n}\n\nenum UserRole {\n  REGULAR\n  ADMIN\n}\n\nenum AuthMethod {\n  CREDENTIALS\n  GOOGLE\n  YANDEX\n}\n",
-  "inlineSchemaHash": "0bb70f84de67d7aec2debb3ee448031451c9d7d851f80a6df3cce6eb199ebde4",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./__generated__\"\n  binaryTargets = [\"native\", \"debian-openssl-1.1.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URI\")\n}\n\nmodel User {\n  id          String  @id @default(uuid())\n  email       String  @unique\n  password    String\n  displayName String  @unique\n  picture     String?\n\n  method AuthMethod @default(CREDENTIALS) @map(\"auth_method\")\n\n  isEmailVerified    Boolean @default(false) @map(\"is_email_verified\")\n  isTwoFactorEnabled Boolean @default(false) @map(\"is_two_factor_enabled\")\n\n  role UserRole @default(REGULAR)\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  accounts Accounts[]\n  tokens   Token[]\n\n  @@map(\"users\")\n}\n\nmodel Accounts {\n  id       String @id @default(uuid())\n  type     String\n  provider String\n\n  refreshToken String? @map(\"refresh_token\")\n  accessToken  String? @map(\"access_token\")\n\n  expiresAt Int? @map(\"expires_at\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @map(\"user_id\")\n\n  @@map(\"accounts\")\n}\n\nmodel Token {\n  id    String        @id @default(uuid())\n  email String        @unique\n  token String        @unique\n  type  EnumTokenType\n\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @map(\"user_id\")\n\n  expiresIn DateTime @map(\"expires_in\")\n\n  @@map(\"tokens\")\n}\n\nenum EnumTokenType {\n  VERIFICATION\n  TWO_FACTOR\n  PASSWORD_RESET\n}\n\nenum UserRole {\n  REGULAR\n  ADMIN\n}\n\nenum AuthMethod {\n  CREDENTIALS\n  GOOGLE\n  YANDEX\n}\n",
+  "inlineSchemaHash": "872194cee26375b53f33686927d2a0332a62e12410183cadda2214baa1e356de",
   "copyEngine": true
 }
 
@@ -251,8 +256,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "prisma/__generated__/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
+path.join(process.cwd(), "prisma/__generated__/libquery_engine-debian-openssl-1.1.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/__generated__/schema.prisma")
