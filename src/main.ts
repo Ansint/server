@@ -6,7 +6,6 @@ import { ValidationPipe } from '@nestjs/common';
 import IORedis from 'ioredis';
 import * as session from 'express-session';
 import { ms, StringValue } from './libs/utils/ms.util';
-
 import { parseBoolean } from './libs/utils/parse-boolean.util';
 import { RedisStore } from 'connect-redis';
 

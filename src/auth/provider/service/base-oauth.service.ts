@@ -24,7 +24,7 @@ export class BaseOAuthService {
             access_type: 'offline',
             prompt: 'select_account',
         })
-        return `${this.options.acess_url}?${query.toString()}`;
+        return `${this.options.access_url}?${query.toString()}`;
     }
     
 
@@ -39,7 +39,7 @@ export class BaseOAuthService {
             redirect_uri: this.getRedirectUrl(),
             grant_type: 'authorization_code',
         });
-        const tokenRequest = await fetch(this.options.acess_url,
+        const tokenRequest = await fetch(this.options.access_url,
             {
                 method: 'POST',
                 headers: {
@@ -99,7 +99,7 @@ export class BaseOAuthService {
 
 
     get access_url() {
-        return this.options.acess_url;
+        return this.options.access_url;
     }
 
     get profile_url() {
