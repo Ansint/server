@@ -17,6 +17,7 @@ export class ProviderModule {
       exports: [ProviderService],
     }
   }
+  
  public static registerAsync(options: TypeAsyncOptions): DynamicModule { 
   return {
     module: ProviderModule,
