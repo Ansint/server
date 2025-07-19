@@ -1,7 +1,7 @@
 import { FactoryProvider, ModuleMetadata, Type } from "@nestjs/common";
 import { BaseOAuthService } from "./service/base-oauth.service";
 
-export const ProviderOptionsSymbol = Symbol()
+export const ProviderOptionsSymbol = Symbol('ProviderOptionsSymbol')
 
 export type TypeOptions = {
     baseUrl: string

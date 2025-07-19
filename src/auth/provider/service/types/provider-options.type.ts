@@ -1,4 +1,4 @@
-export type TupleProviderOptions = {
+export type TypeProviderOptions = {
     scope: string;
     clientId: string;
     clientSecret: string;
