@@ -7,16 +7,12 @@ import { hash } from 'argon2';
 export class UserService {
     public constructor(private readonly prismaService: PrismaService) {}
 
-        public async findById(id:string) {
-            const user = await this.prismaService.user.findUnique({
-                where: {
-                    id
-                },
-                include : {
-                 accounts: true,
-                },
-        });
-    }
+        public async findById(id: string) {
+            return this.prismaService.user.findUnique({
+                where: { id },
+                include: { accounts: true },
+            });
+        }
 
         public async findByEmail(email:string) {
             const user = await this.prismaService.user.findUnique({
